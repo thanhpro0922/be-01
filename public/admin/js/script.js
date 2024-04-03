@@ -11,11 +11,28 @@ if (buttonsStatus.length > 0) {
             if (status) {
                 //searchParams là phần sau dấu ? trên link
                 url.searchParams.set("status", status);
-            }
-            else {
+            } else {
                 url.searchParams.delete("status");
             }
             window.location.href = url.href;
         });
+    });
+}
+
+// Form search
+const fromSearch = document.querySelector("#form-search"); //get ra thằng id form-search
+
+if (fromSearch) {
+    let url = new URL(window.location.href);
+    fromSearch.addEventListener("submit", (e) => {
+        e.preventDefault(); //chặn sự kiện mặc định của form
+        const keyword = e.target.elements.keyword.value;
+        if (keyword) {
+            //searchParams là phần sau dấu ? trên link
+            url.searchParams.set("keyword", keyword);
+        } else {
+            url.searchParams.delete("keyword");
+        }
+        window.location.href = url.href;
     });
 }
