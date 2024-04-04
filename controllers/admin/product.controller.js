@@ -2,6 +2,7 @@ const Product = require("../../model/product-model");
 
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
+const paginationHelper = require("../../helpers/pagination");
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
     // console.log(req.query.status);
@@ -25,21 +26,17 @@ module.exports.index = async (req, res) => {
     }
 
     //Pagination
-    let objectPagination = {
-        currentPage: 1,
-        limitItem: 4,
-    };
-
-    if (req.query.page) {
-        objectPagination.currentPage = parseInt(req.query.page);
-    }
-
-    objectPagination.skip = (objectPagination.currentPage - 1) * 4;
-
     const countProducts = await Product.countDocuments(find);
-    const totalPage = Math.ceil(countProducts / objectPagination.limitItem);
-    objectPagination.totalPage = totalPage;
-    // trong mongopse hàm count hay countDocuments giống nhau, thích thì thay thành count cx đc
+    let objectPagination = paginationHelper(
+        {
+            currentPage: 1,
+            limitItem: 4,
+        },
+        req.query,
+        countProducts
+    );
+
+    // trong mongoose hàm count hay countDocuments giống nhau, thích thì thay thành count cx đc
     const products = await Product.find(find)
         .limit(objectPagination.limitItem)
         .skip(objectPagination.skip);
