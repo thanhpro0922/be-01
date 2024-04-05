@@ -49,3 +49,60 @@ if (buttonPagination) {
         });
     });
 }
+
+// Checkbox Multi
+const checkboxMulti = document.querySelector("[checkbox-multi]");
+if (checkboxMulti) {
+    const inputCheckAll = checkboxMulti.querySelector("input[name='checkall']");
+    const inputId = checkboxMulti.querySelectorAll("input[name='id']");
+    //đây là logic của check all
+    inputCheckAll.addEventListener("click", () => {
+        if (inputCheckAll.checked) {
+            inputId.forEach((input) => {
+                input.checked = true;
+            });
+        } else {
+            inputId.forEach((input) => {
+                input.checked = false;
+            });
+        }
+    });
+    // đây là logic vd khi click đủ hết thì nó tự click vào checkall, và bỏ ra cx vậy
+    inputId.forEach((input) => {
+        input.addEventListener("click", () => {
+            const countChecked = checkboxMulti.querySelectorAll(
+                "input[name='id']:checked"
+            ).length;
+            if (countChecked.length == inputId.length) {
+                inputCheckAll.checked = true;
+            } else {
+                inputCheckAll.checked = false;
+            }
+        });
+    });
+}
+
+// Form Change Multi
+
+const formChangeMulti = document.querySelector("[form-change-multi]");
+if (formChangeMulti) {
+    formChangeMulti.addEventListener("submit", (e) => {
+        e.preventDefault(); //nhắc lại là dùng để ngăn hành vi mặc định, dùng cái này để khỏi load lại trang mõi khi submit
+        const checkboxMulti = document.querySelector("[checkbox-multi]");
+        const inputChecked = checkboxMulti.querySelectorAll(
+            "input[name='id']:checked"
+        );
+        if (inputChecked.length > 0) {
+            let ids = [];
+            const inputIds = formChangeMulti.querySelector("input[name='ids']");
+            inputChecked.forEach((input) => {
+                const id = input.value; // do value là thuộc tính mặc đinh nên . cx đc ko thì dùng getAttribute
+                ids.push(id);
+            });
+            inputIds.value = ids.join(", "); // do ô input k ấy được array nên phải chuyển qua string
+            formChangeMulti.submit();
+        } else {
+            alert("Vui lòng chọn ít nhất một bản ghi!");
+        }
+    });
+}

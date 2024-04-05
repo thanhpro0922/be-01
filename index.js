@@ -1,5 +1,6 @@
 const express = require("express");
 const methodOverride = require("method-override");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -13,6 +14,7 @@ database.connect();
 
 const app = express();
 app.use(methodOverride("_method"));
+app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT;
 
 app.set("views", "./views");
