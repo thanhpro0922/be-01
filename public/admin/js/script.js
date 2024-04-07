@@ -109,7 +109,15 @@ if (formChangeMulti) {
             const inputIds = formChangeMulti.querySelector("input[name='ids']");
             inputChecked.forEach((input) => {
                 const id = input.value; // do value là thuộc tính mặc đinh nên . cx đc ko thì dùng getAttribute
-                ids.push(id);
+
+                if (typeChange == "change-position") {
+                    const position = input
+                        .closest("tr")
+                        .querySelector("input[name='position']").value;
+                    ids.push(`${id}-${position}`);
+                } else {
+                    ids.push(id);
+                }
             });
             inputIds.value = ids.join(", "); // do ô input k ấy được array nên phải chuyển qua string
             formChangeMulti.submit();
