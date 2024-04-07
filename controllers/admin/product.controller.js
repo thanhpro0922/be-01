@@ -5,8 +5,6 @@ const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
-    // console.log(req.query.status);
-
     // Đoạn bộ lọc
 
     const filterStatus = filterStatusHelper(req.query);
@@ -55,6 +53,7 @@ module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
     const id = req.params.id;
     await Product.updateOne({ _id: id }, { status: status });
+    req.flash("success", "Cập nhật trạng thái thành công!"); // hiểu là tham số 1 là biến và tham số 2 là value
     res.redirect("back");
 };
 // [PATCH] /admin/products/change-multi/:status/:id
@@ -67,11 +66,19 @@ module.exports.changeMulti = async (req, res) => {
                 { _id: { $in: ids } },
                 { status: "active" }
             );
+            req.flash(
+                "success",
+                `Cập nhật trạng thái thành công ${ids.length} sản phẩm!`
+            );
             break;
         case "inactive":
             await Product.updateMany(
                 { _id: { $in: ids } },
                 { status: "inactive" }
+            );
+            req.flash(
+                "success",
+                `Cập nhật trạng thái thành công ${ids.length} sản phẩm!`
             );
             break;
         case "delete-all":
@@ -92,7 +99,6 @@ module.exports.changeMulti = async (req, res) => {
     }
     res.redirect("back");
 };
-
 // [DELETE] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;

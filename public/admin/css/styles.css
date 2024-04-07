@@ -41,3 +41,43 @@
     padding: 6px 10px;
     border-bottom: 1px solid #515151;
 }
+
+/* Show alert */
+
+/* dấu [ ] là dành cho các thuộc tính tự đặt */
+[show-alert] {
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    z-index: 9999;
+}
+
+[show-alert].alert-hidden {
+    animation-name: alert-hidden; /*đặt tên cho keyframes*/
+    animation-duration: 0.5s;   /*hiểu là như transition*/
+    animation-fill-mode: ;  
+}
+
+@keyframes alert-hidden {
+    from {
+        right: 15px;
+    }
+
+    to {
+        right: -100%;
+        display: none;
+    }
+}
+
+[show-alert] [close-alert] {
+    background: #ffffffc4;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #111;
+}
