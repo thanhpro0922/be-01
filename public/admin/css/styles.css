@@ -54,8 +54,8 @@
 
 [show-alert].alert-hidden {
     animation-name: alert-hidden; /*đặt tên cho keyframes*/
-    animation-duration: 0.5s;   /*hiểu là như transition*/
-    animation-fill-mode: ;  
+    animation-duration: 0.5s; /*hiểu là như transition*/
+    animation-fill-mode: both;
 }
 
 @keyframes alert-hidden {
@@ -80,4 +80,19 @@
     border-radius: 50%;
     cursor: pointer;
     border: 1px solid #111;
+}
+
+
+/* img preview */
+.image-preview {
+    width: 150px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border: 5px;
+}
+
+.image-preview[src=""] {
+    display: none;
 }
