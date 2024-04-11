@@ -67,11 +67,18 @@ block main
                 accept="image/*"
                 upload-image-input
             )
-            img(
-                src=""
-                upload-image-preview
-                class="image-preview"
-            )
+            div(class="image-preview-container")
+                img(
+                    src=""
+                    upload-image-preview
+                    class="image-preview"
+                )
+                span(
+                    class="image-preview-close image-preview-hidden"
+                    upload-image-close
+                ) x
+            
+            
         div(class="form-group")
             label(for="position") Vị trí
             input(

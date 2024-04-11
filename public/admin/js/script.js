@@ -154,6 +154,15 @@ if (uploadImage) {
         const file = e.target.files[0];
         if (file) {
             uploadImagePreview.src = URL.createObjectURL(file);
+            const closePreview = document.querySelector("[upload-image-close]");
+            closePreview.classList.add("showClosePreview");
+            closePreview.classList.remove("image-preview-hidden");
+            closePreview.addEventListener("click", () => {
+                uploadImageInput.value = "";
+                uploadImagePreview.src = "";
+                closePreview.classList.remove("showClosePreview");
+                closePreview.classList.add("image-preview-hidden");
+            });
         }
     });
 }
