@@ -52,6 +52,7 @@ module.exports.index = async (req, res) => {
 module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
     const id = req.params.id;
+
     await Product.updateOne({ _id: id }, { status: status });
     req.flash("success", "Cập nhật trạng thái thành công!"); // hiểu là tham số 1 là biến và tham số 2 là value
     res.redirect("back");
@@ -144,4 +145,43 @@ module.exports.createPost = async (req, res) => {
     await product.save(); // đoạn này mới lưu
 
     res.redirect(`${systemConfig.preFixAdmin}/products`);
+};
+
+// [GET] /admin/products/edit/:id
+module.exports.edit = async (req, res) => {
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id,
+        };
+        const product = await Product.findOne(find);
+        res.render("admin/pages/product/edit", {
+            pageTitle: "Chỉnh sửa sản phẩm",
+            product: product,
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.preFixAdmin}/products`);
+    }
+};
+
+// [PATCH] /admin/products/edit/:id
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id;
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    req.body.position = parseInt(req.body.position);
+
+    if (req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`;
+    }
+
+    try {
+        await Product.updateOne({ _id: id }, req.body);
+        req.flash("success", "Cập nhật ảnh thành công!");
+    } catch (error) {
+        req.flash("error", "Cập nhật Thất bại!");
+    }
+
+    res.redirect("back");
 };
