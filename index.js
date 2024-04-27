@@ -20,7 +20,7 @@ app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT;
 
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 //Flash
@@ -32,7 +32,7 @@ app.use(flash());
 //Ap local variables
 app.locals.preFixAdmin = systemConfig.preFixAdmin;
 
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 //routes
 routeAdmin(app);
