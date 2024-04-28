@@ -13,6 +13,7 @@ const systemConfig = require("./config/system");
 const routeAdmin = require("./routes/admin/index.route");
 const route = require("./routes/client/index.route");
 
+
 database.connect();
 
 const app = express();

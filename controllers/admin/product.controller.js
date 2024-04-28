@@ -135,10 +135,6 @@ module.exports.createPost = async (req, res) => {
         req.body.position = parseInt(req.body.position);
     }
 
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
-
     // đoạn này để lưu dữ liệu vào database
     //đoạn này chỉ lưu ở model chứ chưa lưu vào database
     const product = new Product(req.body); // new Product nhận tham số là object, nhưng req.body nó cx trả ra object nên điền vậy
