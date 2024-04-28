@@ -34,9 +34,19 @@ module.exports.index = async (req, res) => {
         countProducts
     );
 
+    //Sort
+
+    let sort = {};
+    if (req.query.sortKey && req.query.sortValue) {
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+        sort.position = "desc";
+    }
+
+    //End sort
     // trong mongoose hàm count hay countDocuments giống nhau, thích thì thay thành count cx đc
     const products = await Product.find(find)
-        .sort({ position: "desc" })
+        .sort(sort)
         .limit(objectPagination.limitItem)
         .skip(objectPagination.skip);
 
