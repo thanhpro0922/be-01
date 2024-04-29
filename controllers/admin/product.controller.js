@@ -210,3 +210,4 @@ module.exports.detail = async (req, res) => {
         res.redirect(`${systemConfig.preFixAdmin}/products`);
     }
 };
+

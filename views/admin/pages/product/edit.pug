@@ -25,13 +25,13 @@ block main
                 
             )
         div(class="form-group")
-            label(for="desc") Mô tả
+            label(for="desc") Mô tả 
             textarea(
-                class="form-control"
+                class="form-control textarea-tinymce"
                 id="desc"
                 name="description"
                 row="5"
-            ) #{product.description}
+            ) !{product.description}
         div(class="form-group")
             label(for="price") Giá
             input(
