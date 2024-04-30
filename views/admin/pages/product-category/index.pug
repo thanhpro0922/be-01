@@ -1,5 +1,5 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/form-change-multi.pug
 block main
  
     h1 Danh mục sản phẩm
@@ -9,6 +9,7 @@ block main
             .card-body   
                 .row 
                     .col-8
+                        +form-change-multi(`${preFixAdmin}/products/change-multi?_method=PATCH`)
                     .col-4  
                         a(
                             href=`${preFixAdmin}/products-category/create`
@@ -61,11 +62,11 @@ block main
                                             href="javascript:;"
                                             data-status=item.status
                                             data-id=item.id
-                                            button-change-status 
+                                            button-change-status
                                             class="badge badge-success") Hoạt động
                                     else
                                         a(
-                                            href="javascript:;"
+                                            href=`javascript:;`
                                             data-status=item.status
                                             data-id=item.id
                                             button-change-status 
@@ -82,3 +83,15 @@ block main
                                         button-delete
                                         data-id=item.id
                                         ) Xóa
+
+
+    form(
+        action=""
+        method="POST"
+        id="form-change-status"
+        data-path=`${preFixAdmin}/products-category/change-status`
+        ) 
+
+ 
+
+    script(src="/admin/js/product-category.js")
