@@ -48,3 +48,52 @@ module.exports.changeStatus = async (req, res) => {
     // res.redirect("back");
     res.redirect("back");
 };
+
+// [PATCH] /admin/products-category/change-multi/:status/:id
+module.exports.changeMulti = async (req, res) => {
+    const type = req.body.type;
+    const ids = req.body.ids.split(", "); // chuyển về lại 1 mảng
+    switch (type) {
+        case "active":
+            await ProductCategory.updateMany(
+                { _id: { $in: ids } },
+                { status: "active" }
+            );
+            req.flash(
+                "success",
+                `Cập nhật trạng thái thành công ${ids.length} sản phẩm!`
+            );
+            break;
+        case "inactive":
+            await ProductCategory.updateMany(
+                { _id: { $in: ids } },
+                { status: "inactive" }
+            );
+            req.flash(
+                "success",
+                `Cập nhật trạng thái thành công ${ids.length} sản phẩm!`
+            );
+            break;
+        case "delete-all":
+            await ProductCategory.updateMany(
+                { _id: { $in: ids } },
+                { deleted: "true", deletedAt: new Date() }
+            );
+            req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm!`);
+            break;
+        case "change-position":
+            for (const item of ids) {
+                let [id, position] = item.split("-");
+                position = parseInt(position);
+                await ProductCategory.updateOne({ _id: id }, { position: position });
+            }
+            req.flash(
+                "success",
+                `Đã đổi vị trí thành công ${ids.length} sản phẩm!`
+            );
+            break;
+        default:
+            break;
+    }
+    res.redirect("back");
+};
