@@ -85,7 +85,10 @@ module.exports.changeMulti = async (req, res) => {
             for (const item of ids) {
                 let [id, position] = item.split("-");
                 position = parseInt(position);
-                await ProductCategory.updateOne({ _id: id }, { position: position });
+                await ProductCategory.updateOne(
+                    { _id: id },
+                    { position: position }
+                );
             }
             req.flash(
                 "success",
@@ -96,4 +99,57 @@ module.exports.changeMulti = async (req, res) => {
             break;
     }
     res.redirect("back");
+};
+
+// [GET] /admin/products/edit/:id
+module.exports.edit = async (req, res) => {
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id,
+        };
+        const productCategory = await ProductCategory.findOne(find);
+        res.render("admin/pages/product-category/edit", {
+            pageTitle: "Chỉnh sửa sản phẩm",
+            productCategory: productCategory,
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.preFixAdmin}/products-category`);
+    }
+};
+
+// [PATCH] /admin/products/edit/:id
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id;
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    req.body.position = parseInt(req.body.position);
+
+    try {
+        await ProductCategory.updateOne({ _id: id }, req.body);
+        req.flash("success", "Cập nhật ảnh thành công!");
+    } catch (error) {
+        req.flash("error", "Cập nhật Thất bại!");
+    }
+
+    res.redirect("back");
+};
+
+// [GET] /admin/products-category/detail/:id
+module.exports.detail = async (req, res) => {
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id,
+        };
+        const productCategory = await ProductCategory.findOne(find);
+
+        res.render("admin/pages/product-category/detail", {
+            pageTitle: productCategory.title,
+            productCategory: productCategory,
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.preFixAdmin}/products-category`);
+    }
 };
