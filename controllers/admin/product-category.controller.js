@@ -20,6 +20,17 @@ module.exports.index = async (req, res) => {
     });
 };
 
+// [DELETE] /admin/products-category/delete/:id
+module.exports.deleteItem = async (req, res) => {
+    const id = req.params.id;
+    await ProductCategory.updateOne(
+        { _id: id },
+        { deleted: true, deletedAt: new Date() }
+    );
+    req.flash("success", `Đã xóa thành công sản phẩm!`);
+    res.redirect("back");
+};
+
 // [GET] /admin/products-category/create
 module.exports.create = async (req, res) => {
     let find = {
