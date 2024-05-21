@@ -62,3 +62,29 @@ module.exports.editPatch = async (req, res) => {
     }
     res.redirect("back");
 };
+
+// [GET] /admin/roles/detail
+module.exports.detail = async (req, res) => {
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id,
+        };
+        const role = await Role.findOne(find);
+
+        res.render("admin/pages/roles/detail", {
+            pageTitle: role.title,
+            role: role,
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.preFixAdmin}/roles`);
+    }
+};
+
+// [DELETE] /admin/role/delete/:id
+module.exports.deleteItem = async (req, res) => {
+    const id = req.params.id;
+    await Role.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
+    req.flash("success", `Đã xóa thành công sản phẩm!`);
+    res.redirect("back");
+};

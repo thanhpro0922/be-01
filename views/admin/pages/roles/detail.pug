@@ -1,0 +1,14 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    if (role.title)
+        h1(class="mb-4") #{role.title}
+
+    if(role.description)
+        div(class="mb-4") !{role.description}
+    a(
+        href=`${preFixAdmin}/roles/edit/${role.id}`
+        class="btn btn-warning"
+    ) Chỉnh sửa
+    script(src="/admin/js/role.js")
