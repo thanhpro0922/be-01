@@ -27,11 +27,11 @@ block main
 
     if(productCategory.description)
         div(class="mb-4") !{productCategory.description}
-
-    a(
-        href=`${preFixAdmin}/products-category/edit/${productCategory.id}`
-        class="btn btn-warning"
-    ) Chỉnh sửa
+    if(role.permissions.includes("products-category_edit"))
+        a(
+            href=`${preFixAdmin}/products-category/edit/${productCategory.id}`
+            class="btn btn-warning"
+        ) Chỉnh sửa
     script(src="/admin/js/product-category.js")
 
     

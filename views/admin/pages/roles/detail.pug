@@ -7,8 +7,9 @@ block main
 
     if(role.description)
         div(class="mb-4") !{role.description}
-    a(
-        href=`${preFixAdmin}/roles/edit/${role.id}`
-        class="btn btn-warning"
-    ) Chỉnh sửa
+    if(role.permissions.includes("roles_edit"))
+        a(
+            href=`${preFixAdmin}/roles/edit/${role.id}`
+            class="btn btn-warning"
+        ) Chỉnh sửa
     script(src="/admin/js/role.js")
