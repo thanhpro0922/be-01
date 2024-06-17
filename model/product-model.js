@@ -27,7 +27,10 @@ const productSchema = new mongoose.Schema(
             type: Boolean,
             default: false, // nếu ngta truyển vào thì theo họ truyền, còn ko thì giá trị mặc định là default
         },
-        deletedAt: Date,
+        deleteBy: {
+            account_id: String,
+            deleteAt: Date,
+        },
     },
     { timestamps: true }
 );

@@ -52,7 +52,7 @@ module.exports.index = async (req, res) => {
         .sort(sort)
         .limit(objectPagination.limitItem)
         .skip(objectPagination.skip);
-        
+
     for (const product of products) {
         const user = await Account.findOne({
             _id: product.createBy.account_id,
@@ -108,7 +108,13 @@ module.exports.changeMulti = async (req, res) => {
         case "delete-all":
             await Product.updateMany(
                 { _id: { $in: ids } },
-                { deleted: "true", deletedAt: new Date() }
+                {
+                    deleted: "true",
+                    deleteBy: {
+                        account_id: res.locals.user.id,
+                        deleteAt: new Date(),
+                    },
+                }
             );
             req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm!`);
             break;
@@ -133,7 +139,14 @@ module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
     await Product.updateOne(
         { _id: id },
-        { deleted: true, deletedAt: new Date() }
+        {
+            deleted: true,
+            // deletedAt: new Date(),
+            deleteBy: {
+                account_id: res.locals.user.id,
+                deleteAt: new Date(),
+            },
+        }
     );
     req.flash("success", `Đã xóa thành công sản phẩm!`);
     res.redirect("back");
