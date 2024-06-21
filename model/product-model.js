@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema(
         stock: Number,
         thumbnail: String,
         status: String,
+        featured: String,
         position: Number,
         slug: { type: String, slug: "title", unique: true }, // unique: true dùng để đảm bảo rằng không có 2 slug giống nhau
         createBy: {
