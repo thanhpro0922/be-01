@@ -5,6 +5,8 @@ const controller = require("../../controllers/client/product.controller");
 
 router.get("/", controller.index);
 
-router.get("/:slug", controller.detail); // những cái động thay đổi như id hay slug thì phải có dấu : trước
+router.get("/:slugCategory", controller.category);
+
+// router.get("/:slug", controller.detail); // những cái động thay đổi như id hay slug thì phải có dấu : trước
 
 module.exports = router;
