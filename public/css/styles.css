@@ -260,3 +260,7 @@
     cursor: pointer;
     border: 1px solid #111;
 }
+
+a {
+    white-space: nowrap;
+}
