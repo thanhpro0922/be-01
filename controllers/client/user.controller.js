@@ -34,9 +34,14 @@ module.exports.registerPost = async (req, res) => {
 
 //@ [GET] /user/login
 module.exports.login = async (req, res) => {
-    res.render("client/pages/user/login", {
-        pageTitle: "Đăng nhập tài khoản",
-    });
+    const user = await User.findOne({ tokenUser: req.cookies.tokenUser });
+    if (user) {
+        res.redirect("/");
+    } else {
+        res.render("client/pages/user/login", {
+            pageTitle: "Đăng nhập tài khoản",
+        });
+    }
 };
 
 //@ [POST] /user/loginPost
