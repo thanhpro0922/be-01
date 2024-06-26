@@ -15,7 +15,6 @@ const systemConfig = require("./config/system");
 const routeAdmin = require("./routes/admin/index.route");
 const route = require("./routes/client/index.route");
 
-
 database.connect();
 
 const app = express();
@@ -33,8 +32,10 @@ app.use(flash());
 // End flash
 
 // TinyMCE
-app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
-
+app.use(
+    "/tinymce",
+    express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
 
 // End TinyMCE
 
@@ -47,6 +48,12 @@ app.use(express.static(`${__dirname}/public`));
 //routes
 routeAdmin(app);
 route(app);
+app.get("*", (req, res) => {
+    res.render("client/pages/errors/404", {
+        pageTitle: "404 Not Found",
+    });
+});
+//@ dấu * ở đó nghĩa là tất cả các trường hợp còn lại
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
