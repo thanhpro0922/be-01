@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("express-flash");
 const moment = require("moment");
+const http = require("http");
+const { Server } = require("socket.io");
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -25,6 +27,13 @@ const port = process.env.PORT;
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
+// SocketIO
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+    console.log("a user connected", socket.id);
+});
 //Flash
 app.use(cookieParser("DLKFKLGDFKLGD")); // key này mình điền bừa để khỏi bị lộ thôi, thích điền gì cx được
 app.use(session({ cookie: { maxAge: 60000 } }));
@@ -55,6 +64,6 @@ app.get("*", (req, res) => {
 });
 //@ dấu * ở đó nghĩa là tất cả các trường hợp còn lại
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
