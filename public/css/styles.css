@@ -270,7 +270,6 @@ a {
 .chat {
     border: 1px solid #eae9e9;
     border-radius: 10px;
-    /* padding: 10px; */
 }
 
 .chat .inner-head .inner-name {
@@ -296,7 +295,7 @@ a {
     font-weight: 600;
 }
 
-.chat .inner-body .inner-content {
+.chat .inner-incoming .inner-content {
     padding: 5px 10px;
     background-color: #eae9e9;
     border-radius: 15px;
@@ -305,7 +304,7 @@ a {
     margin-bottom: 10px;
 }
 
-.chat .inner-body .inner-content {
+.chat .inner-outgoing .inner-content {
     padding: 5px 10px;
     background-color: #fe5da3;
     border-radius: 15px;
