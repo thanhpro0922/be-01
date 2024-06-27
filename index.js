@@ -30,10 +30,9 @@ app.set("view engine", "pug");
 // SocketIO
 const server = http.createServer(app);
 const io = new Server(server);
+global._io = io; //# cái _io là tên biến - đặt là gì cx đc, cái global là để ấy biến toàn cục dùng ở đâu cx đc
 
-io.on("connection", (socket) => {
-    console.log("a user connected", socket.id);
-});
+
 //Flash
 app.use(cookieParser("DLKFKLGDFKLGD")); // key này mình điền bừa để khỏi bị lộ thôi, thích điền gì cx được
 app.use(session({ cookie: { maxAge: 60000 } }));
