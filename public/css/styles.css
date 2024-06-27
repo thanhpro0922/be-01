@@ -264,3 +264,71 @@
 a {
     white-space: nowrap;
 }
+
+/** Chat */
+
+.chat {
+    border: 1px solid #eae9e9;
+    border-radius: 10px;
+    /* padding: 10px; */
+}
+
+.inner-foot,
+.inner-body {
+    padding: 10px;
+}
+
+.inner-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.inner-incoming .inner-content {
+    padding: 5px 10px;
+    background-color: #eae9e9;
+    border-radius: 15px;
+    max-width: 40%;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.inner-outgoing .inner-content {
+    padding: 5px 10px;
+    background-color: #fe5da3;
+    border-radius: 15px;
+    max-width: 40%;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-left: auto;
+}
+
+.inner-foot {
+    border-top: 1px solid #eae9e9;
+}
+
+.chat .inner-form {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.chat .inner-form input {
+    flex: 1;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 0 10px;
+    outline: none;
+}
+
+.chat .inner-form button {
+    border-radius: 15px;
+    border: 1px solid #fe5da3;
+    background-color: #fe5da3;
+    color: #fff;
+    height: 32px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+/** End Chat */
